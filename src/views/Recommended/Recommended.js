@@ -6,14 +6,22 @@ const Recommended = ({ images }) => {
   return (
     <div>
       {images.map((image) => {
-        return <Photo images={image} />;
+        return (
+          <Photo
+            author={image.author}
+            url={image.url}
+            tags={image.tags}
+            key={image.url}
+            alt={image.alt}
+          />
+        );
       })}
     </div>
   );
 };
 
 Recommended.propTypes = {
-  images: PropTypes.arrayOf(PropTypes.string).isRequired,
+  images: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Recommended;
