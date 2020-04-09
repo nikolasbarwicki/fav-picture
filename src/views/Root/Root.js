@@ -26,7 +26,9 @@ class Root extends Component {
   };
 
   addToFavourites = (url, author, alt, tags) => {
-    this.setState({ favourites: [...this.state.favourites, { url, author, alt, tags }] });
+    this.setState((prevState) => ({
+      favourites: [...prevState.favourites, { url, author, alt, tags }],
+    }));
   };
 
   delFromFavourites = (url) => {

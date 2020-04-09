@@ -25,8 +25,8 @@ const Tags = styled.p`
 const Wrapper = styled.div`
   position: relative;
   overflow: hidden;
-  width: 400px;
-  height: 400px;
+  width: 100%;
+  height: 100%;
   &:hover ${Tags} {
     display: block;
     opacity: 1;
@@ -35,8 +35,8 @@ const Wrapper = styled.div`
 
 const Image = styled.img`
   object-fit: cover;
-  width: 400px;
-  height: 400px;
+  width: 100%;
+  height: 100%;
 `;
 
 const Button = styled.button`

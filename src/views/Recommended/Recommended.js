@@ -5,7 +5,7 @@ import Photo from '../../components/Photo/Photo';
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 400px);
+  grid-template-columns: repeat(3, 25%);
   grid-gap: 50px;
   justify-content: center;
   width: 100%;
