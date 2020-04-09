@@ -1,6 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import styled from 'styled-components';
 import axios from 'axios';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import AppContext from '../../context';
 import logo from '../../assets/images/favpicture.svg';
 
@@ -36,31 +40,86 @@ class Header extends React.Component {
   render() {
     const data = this.state;
 
+    const Wrapper = styled.div`
+      padding: 0 8vw;
+      height: 10vh;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    `;
+
+    const NavList = styled.ul`
+      display: flex;
+    `;
+
+    const NavItem = styled.li`
+      list-style: none;
+    `;
+
+    const StyledNavLink = styled(NavLink)`
+      text-decoration: none;
+      color: #000;
+      font-size: 2.4rem;
+      margin-left: 4rem;
+      &.active {
+        font-weight: 600;
+      }
+    `;
+
+    const Input = styled.input`
+      height: 5rem;
+      width: 40rem;
+      border: none;
+      padding: 2rem;
+      font-size: 2rem;
+      font-family: 'Raleway', sans-serif;
+      :focus {
+        outline: none;
+      }
+    `;
+
+    const Button = styled.button`
+      height: 5rem;
+      width: 5rem;
+      font-size: 2rem;
+      background-color: #fff;
+      border: none;
+      cursor: pointer;
+      :focus {
+        outline: none;
+      }
+    `;
+
     return (
       <AppContext.Consumer>
         {(context) => (
-          <div>
+          <Wrapper>
             <img src={logo} alt="" />
-            <input
-              type="text"
-              value={data.query.toLowerCase()}
-              onChange={this.handleInputChange}
-              placeholder="fetching user data..."
-            />
-            <button onClick={() => context.onSearchSubmit(data.query)} type="button">
-              get photos
-            </button>
+
+            <div>
+              <Input
+                type="text"
+                value={data.query}
+                onChange={this.handleInputChange}
+                placeholder="fetching user data..."
+              />
+              <Button onClick={() => context.onSearchSubmit(data.query)} type="button">
+                <FontAwesomeIcon icon={faSearch} />
+              </Button>
+            </div>
             <nav>
-              <ul>
-                <li>
-                  <NavLink to="/">Recommended</NavLink>
-                </li>
-                <li>
-                  <NavLink to="/favourites">Favourites</NavLink>
-                </li>
-              </ul>
+              <NavList>
+                <NavItem>
+                  <StyledNavLink exact to="/">
+                    recommended
+                  </StyledNavLink>
+                </NavItem>
+                <NavItem>
+                  <StyledNavLink to="/favourites">favourites</StyledNavLink>
+                </NavItem>
+              </NavList>
             </nav>
-          </div>
+          </Wrapper>
         )}
       </AppContext.Consumer>
     );

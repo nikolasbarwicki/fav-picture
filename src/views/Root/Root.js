@@ -5,13 +5,14 @@ import AppContext from '../../context';
 import Favourites from '../Favourites/Favourites';
 import Recommended from '../Recommended/Recommended';
 import Header from '../../components/Header/Header';
+import GlobalStyle from '../../Theme/GlobalStyle';
 
 class Root extends Component {
   state = { images: [], favourites: [] };
 
   onSearchSubmit = async (term) => {
     const response = await axios.get('https://api.unsplash.com/search/photos', {
-      params: { query: term, per_page: 6 },
+      params: { query: term, per_page: 6, orientation: 'landscape' },
       headers: {
         Authorization: 'Client-ID DIvtES7bP4JvGhNePlCYIEBCqoetlGdqAnD68doTjVY',
       },
@@ -25,7 +26,7 @@ class Root extends Component {
   };
 
   addToFavourites = (url, author, alt, tags) => {
-    this.setState({ favourites: [{ url, author, alt, tags }] });
+    this.setState({ favourites: [...this.state.favourites, { url, author, alt, tags }] });
   };
 
   delFromFavourites = (url) => {
@@ -47,11 +48,12 @@ class Root extends Component {
     return (
       <AppContext.Provider value={contextElements}>
         <BrowserRouter>
+          <GlobalStyle />
           <Header />
           <Route exact path="/">
             <Recommended images={data.images} />
           </Route>
-          <Route path="/favourites">
+          <Route exact path="/favourites">
             <Favourites images={data.favourites} />
           </Route>
         </BrowserRouter>

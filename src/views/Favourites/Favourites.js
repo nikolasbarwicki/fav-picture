@@ -1,10 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import Photo from '../../components/Photo/Photo';
+
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 400px);
+  grid-gap: 50px;
+  justify-content: center;
+  width: 100%;
+`;
 
 const Favourites = ({ images }) => {
   return (
-    <div>
+    <Wrapper>
       {images.map((image) => {
         return (
           <Photo
@@ -17,7 +26,7 @@ const Favourites = ({ images }) => {
           />
         );
       })}
-    </div>
+    </Wrapper>
   );
 };
 
