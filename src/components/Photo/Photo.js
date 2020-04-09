@@ -25,7 +25,6 @@ const Tags = styled.p`
 const Wrapper = styled.div`
   position: relative;
   overflow: hidden;
-  background-color: red;
   width: 400px;
   height: 400px;
   &:hover ${Tags} {

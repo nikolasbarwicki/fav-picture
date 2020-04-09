@@ -8,6 +8,56 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import AppContext from '../../context';
 import logo from '../../assets/images/favpicture.svg';
 
+const Wrapper = styled.div`
+  padding: 0 8vw;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const NavList = styled.ul`
+  display: flex;
+`;
+
+const NavItem = styled.li`
+  list-style: none;
+`;
+
+const StyledNavLink = styled(NavLink)`
+  text-decoration: none;
+  color: #000;
+  font-size: 2.4rem;
+  margin-left: 4rem;
+  &.active {
+    font-weight: 600;
+  }
+`;
+
+const Input = styled.input`
+  height: 5rem;
+  width: 40rem;
+  border: none;
+  padding: 2rem;
+  font-size: 2rem;
+  font-family: 'Raleway', sans-serif;
+  :focus {
+    outline: none;
+  }
+`;
+
+const Button = styled.button`
+  height: 5rem;
+  width: 5rem;
+  font-size: 2rem;
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+  :focus {
+    outline: none;
+  }
+`;
+
 class Header extends React.Component {
   state = { query: '' };
 
@@ -40,56 +90,6 @@ class Header extends React.Component {
   render() {
     const data = this.state;
 
-    const Wrapper = styled.div`
-      padding: 0 8vw;
-      height: 10vh;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    `;
-
-    const NavList = styled.ul`
-      display: flex;
-    `;
-
-    const NavItem = styled.li`
-      list-style: none;
-    `;
-
-    const StyledNavLink = styled(NavLink)`
-      text-decoration: none;
-      color: #000;
-      font-size: 2.4rem;
-      margin-left: 4rem;
-      &.active {
-        font-weight: 600;
-      }
-    `;
-
-    const Input = styled.input`
-      height: 5rem;
-      width: 40rem;
-      border: none;
-      padding: 2rem;
-      font-size: 2rem;
-      font-family: 'Raleway', sans-serif;
-      :focus {
-        outline: none;
-      }
-    `;
-
-    const Button = styled.button`
-      height: 5rem;
-      width: 5rem;
-      font-size: 2rem;
-      background-color: #fff;
-      border: none;
-      cursor: pointer;
-      :focus {
-        outline: none;
-      }
-    `;
-
     return (
       <AppContext.Consumer>
         {(context) => (
@@ -101,7 +101,7 @@ class Header extends React.Component {
                 type="text"
                 value={data.query}
                 onChange={this.handleInputChange}
-                placeholder="fetching user data..."
+                placeholder="search new photos..."
               />
               <Button onClick={() => context.onSearchSubmit(data.query)} type="button">
                 <FontAwesomeIcon icon={faSearch} />
