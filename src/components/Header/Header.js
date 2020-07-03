@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import AsyncCreatableSelect from 'react-select/async-creatable';
+
 import AppContext from '../../context';
 import logo from '../../assets/images/favpicture.svg';
 
@@ -35,9 +35,8 @@ const StyledNavLink = styled(NavLink)`
   }
 `;
 
-const Input = styled.input`
-  height: 5rem;
-  width: 40rem;
+const Input = styled(AsyncCreatableSelect)`
+  width: 60rem;
   border: none;
   padding: 2rem;
   font-size: 2rem;
@@ -47,84 +46,64 @@ const Input = styled.input`
   }
 `;
 
-const Button = styled.button`
-  height: 5rem;
-  width: 5rem;
-  font-size: 2rem;
-  background-color: #fff;
-  border: none;
-  cursor: pointer;
-  :focus {
-    outline: none;
-  }
-`;
+const Header = () => {
+  const getUserData = async () => {
+    const getLocation = await axios.get('https://geolocation-db.com/json/');
+    const getWeather = await axios.get('https://api.weatherbit.io/v2.0/current', {
+      params: {
+        city: getLocation.data.city,
+        key: '1524c3d025314a54b9222ff633f2b004',
+      },
+    });
 
-class Header extends React.Component {
-  state = { query: '' };
+    const userCountry = getLocation.data.country_name;
+    const userCity = getLocation.data.city;
+    const userWeather = getWeather.data.data[0].weather.description.toLowerCase();
 
-  componentDidMount() {
-    const getUserData = async () => {
-      try {
-        const getLocation = await axios.get('https://geolocation-db.com/json/');
-        const getWeather = await axios.get('https://api.weatherbit.io/v2.0/current', {
-          params: {
-            city: getLocation.data.city,
-            key: '1524c3d025314a54b9222ff633f2b004',
-          },
-        });
-
-        const userCountry = getLocation.data.country_name;
-        const userWeather = getWeather.data.data[0].weather.description;
-
-        this.setState({ query: `${userCountry} ${userWeather}` });
-      } catch (e) {
-        console.log(e); // eslint-disable-line no-console
-      }
-    };
-    getUserData();
-  }
-
-  handleInputChange = (e) => {
-    this.setState({ query: e.target.value });
+    return [
+      { value: userCountry, label: userCountry },
+      { value: userCity, label: userCity },
+      { value: userWeather, label: userWeather },
+    ];
   };
 
-  render() {
-    const data = this.state;
+  const promiseOptions = () => {
+    return getUserData();
+  };
 
-    return (
-      <AppContext.Consumer>
-        {(context) => (
-          <Wrapper>
-            <img src={logo} alt="" />
+  return (
+    <AppContext.Consumer>
+      {(context) => (
+        <Wrapper>
+          <img src={logo} alt="" />
 
-            <div>
-              <Input
-                type="text"
-                value={data.query}
-                onChange={this.handleInputChange}
-                placeholder="search new photos..."
-              />
-              <Button onClick={() => context.onSearchSubmit(data.query)} type="button">
-                <FontAwesomeIcon icon={faSearch} />
-              </Button>
-            </div>
-            <nav>
-              <NavList>
-                <NavItem>
-                  <StyledNavLink exact to="/">
-                    recommended
-                  </StyledNavLink>
-                </NavItem>
-                <NavItem>
-                  <StyledNavLink to="/favourites">favourites</StyledNavLink>
-                </NavItem>
-              </NavList>
-            </nav>
-          </Wrapper>
-        )}
-      </AppContext.Consumer>
-    );
-  }
-}
+          <Input
+            isMulti
+            cacheOptions
+            defaultOptions
+            loadOptions={promiseOptions}
+            onChange={(value) =>
+              value === null ? null : context.onSearchSubmit(value.map((el) => el.value).join(' '))
+            }
+            allowCreateWhileLoading
+          />
+
+          <nav>
+            <NavList>
+              <NavItem>
+                <StyledNavLink exact to="/">
+                  recommended
+                </StyledNavLink>
+              </NavItem>
+              <NavItem>
+                <StyledNavLink to="/favourites">favourites</StyledNavLink>
+              </NavItem>
+            </NavList>
+          </nav>
+        </Wrapper>
+      )}
+    </AppContext.Consumer>
+  );
+};
 
 export default Header;

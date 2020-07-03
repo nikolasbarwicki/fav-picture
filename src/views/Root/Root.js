@@ -16,6 +16,7 @@ class Root extends Component {
       headers: {
         Authorization: 'Client-ID DIvtES7bP4JvGhNePlCYIEBCqoetlGdqAnD68doTjVY',
       },
+      timeout: 1000,
     });
 
     const imagesList = response.data.results.map((el) => {
