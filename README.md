@@ -2,6 +2,10 @@
 
 Simple React app to deliver daily recommendations of best photos.
 
+### Live demo
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/34612c17-623c-40e5-b883-563a4e054903/deploy-status)](https://musing-jepsen-74c6e2.netlify.app/)
+
 <p align="center">
   <img width="700" src="https://i.ibb.co/qCrc8yY/Annotation-2020-04-10-154131.png">
 </p>
