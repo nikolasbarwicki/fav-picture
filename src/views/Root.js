@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import axios from 'axios';
-import AppContext from '../../context';
-import Favourites from '../Favourites/Favourites';
-import Recommended from '../Recommended/Recommended';
-import Header from '../../components/Header/Header';
-import GlobalStyle from '../../Theme/GlobalStyle';
+import AppContext from '../context';
+import Favourites from './Favourites';
+import Recommended from './Recommended';
+import Header from '../components/Header';
+import GlobalStyle from '../Theme/GlobalStyle';
 
 class Root extends Component {
   state = { images: [], favourites: [] };

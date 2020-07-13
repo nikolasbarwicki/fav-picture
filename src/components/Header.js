@@ -5,8 +5,8 @@ import axios from 'axios';
 
 import AsyncCreatableSelect from 'react-select/async-creatable';
 
-import AppContext from '../../context';
-import logo from '../../assets/images/favpicture.svg';
+import AppContext from '../context';
+import logo from '../assets/images/favpicture.svg';
 
 const Wrapper = styled.div`
   padding: 0 8vw;
@@ -14,11 +14,36 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 3%;
+  margin-bottom: 40px;
+
+  @media (max-width: 992px) {
+    flex-direction: column;
+    justify-content: center;
+    height: 20vh;
+  }
 `;
 
 const NavList = styled.ul`
+  list-style: none;
   display: flex;
+  justify-content: space-between;
+  width: 300px;
+  padding-inline-start: 0;
+
+  @media (max-width: 992px) {
+    justify-content: space-evenly;
+    width: 50vw;
+  }
+
+  @media (max-width: 768px) {
+    justify-content: space-evenly;
+    width: 80vw;
+  }
+
+  @media (max-width: 576px) {
+    flex-direction: column;
+    text-align: center;
+  }
 `;
 
 const NavItem = styled.li`
@@ -29,7 +54,7 @@ const StyledNavLink = styled(NavLink)`
   text-decoration: none;
   color: #000;
   font-size: 2.4rem;
-  margin-left: 4rem;
+
   &.active {
     font-weight: 600;
   }
@@ -43,6 +68,10 @@ const Input = styled(AsyncCreatableSelect)`
   font-family: 'Raleway', sans-serif;
   :focus {
     outline: none;
+  }
+
+  @media (max-width: 576px) {
+    width: 100%;
   }
 `;
 

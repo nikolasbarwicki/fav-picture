@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faTrash } from '@fortawesome/free-solid-svg-icons';
 
-import AppContext from '../../context';
+import AppContext from '../context';
 
 const Tags = styled.p`
   opacity: 0;

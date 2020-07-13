@@ -1,19 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import Photo from '../../components/Photo/Photo';
-
-const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 25%);
-  grid-gap: 50px;
-  justify-content: center;
-  width: 100%;
-`;
+import Grid from '../components/Grid';
+import Photo from '../components/Photo';
 
 const Recommended = ({ images }) => {
   return (
-    <Wrapper>
+    <Grid>
       {images.map((image) => {
         return (
           <Photo
@@ -25,7 +17,7 @@ const Recommended = ({ images }) => {
           />
         );
       })}
-    </Wrapper>
+    </Grid>
   );
 };
 
